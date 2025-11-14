@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Klassenspeicher</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- jsPDF (für Fotos -> PDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">Klassenspeicher</div>
+      <div class="user-controls">
+        <input id="usernameInput" placeholder="Dein Name" />
+        <input id="codeInput" placeholder="Klassen-Code (oder neu)" />
+        <button id="joinBtn">Beitreten / Neu</button>
+        <button id="logoutBtn" style="display:none">Logout</button>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <h3>Ordner</h3>
+          <button id="newFolderBtn" class="primary">Neuen Ordner</button>
+        </div>
+        <ul id="folderList" class="folder-list">
+          <!-- Folders injected here -->
+        </ul>
+      </aside>
+
+      <section class="content">
+        <div class="content-header">
+          <h2 id="currentFolderTitle">Bitte Klasse beitreten</h2>
+          <div>
+            <button id="uploadBtn" class="primary">Datei hochladen</button>
+            <button id="newNoteBtn">Neue Notiz</button>
+          </div>
+        </div>
+
+        <div id="filesArea" class="files-area">
+          <!-- Files list -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Upload / Options Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <button id="modalClose" class="modal-close">✕</button>
+      <h3>Datei hochladen / Optionen</h3>
+
+      <div class="upload-options">
+        <label class="upload-row">
+          <span>Hochladen von Gerät</span>
+          <input id="fileInput" type="file" />
+        </label>
+
+        <label class="upload-row">
+          <span>Foto als PDF (Kamera)</span>
+          <input id="cameraInput" accept="image/*" type="file" capture="environment" />
+          <button id="cameraPdfBtn" class="secondary">Foto → PDF</button>
+        </label>
+
+        <label class="upload-row">
+          <span>Notiz erstellen</span>
+          <button id="openNoteEditor" class="secondary">Notiz öffnen</button>
+        </label>
+
+        <div id="uploadStatus" class="status"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Note Editor Modal -->
+  <div id="noteModal" class="modal hidden">
+    <div class="modal-content large">
+      <button id="noteClose" class="modal-close">✕</button>
+      <div class="note-toolbar">
+        <input id="noteTitle" placeholder="Titel der Notiz" />
+        <button id="saveNoteBtn" class="primary">Speichern</button>
+        <button id="clearCanvasBtn" class="secondary">Radierer</button>
+      </div>
+      <div class="note-body">
+        <textarea id="noteText" placeholder="Schreibe hier..."></textarea>
+        <canvas id="noteCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- firebase-config is a module exporting { app, db, storage } -->
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
